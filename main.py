@@ -4,7 +4,7 @@ from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
 counter = 0
-directory = '/mnt/thesis/captures/nms/logs'
+directory = '/mnt/thesis/captures/nms/'
 log = 'conn.log'
 output = '/mnt/thesis/captures/nms/data'
 
@@ -18,7 +18,8 @@ class Util:
         event_handler = Handler()
         self.observer.schedule(event_handler, self.watchDirectory, recursive = True)
         self.observer.start()
-
+        print("Now watching for file changes in : " + self.watchDirectory)
+        
         try:
             while True:
                 time.sleep(5)
@@ -29,12 +30,6 @@ class Util:
         self.observer.join()
 
 class Handler(FileSystemEventHandler):
-    def getPrev(x):
-        return (x - 1) % 24
-
-    def extractDigitFromFilePath(filePath):
-        digits = re.findall(r"\d\d", filePath)
-        return digits[0]
 
     @staticmethod
     def on_any_event(event):
