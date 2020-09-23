@@ -1,4 +1,3 @@
-
 class FileTailer(object):
     def __init__(self, filepath, sleep=50, full_read=True, tail=True):
         self._filepath = filepath
