@@ -1,5 +1,6 @@
 import os, time, re, sys, getopt
 import pandas as pd
+import LogToDataFrame
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -37,10 +38,9 @@ class Handler(FileSystemEventHandler):
             return None
 
         elif event.event_type == 'created' and ('.log' in event.src_path):
-            print("Run ZAT")
-            #log_to_df = LogToDataFrame()
-            #conn_df = log_to_df.create_dataframe(path + conn)
-            #print conn_df
+            print("Run ZAT: " + event.src_path)
+            log_to_df = LogToDataFrame()
+            conn_df = log_to_df.create_dataframe(path + conn)
             
         elif event.event_type == 'created' and ('.log' not in event.src_path):
             print('created: ' + event.src_path)
