@@ -40,22 +40,20 @@ class Handler(FileSystemEventHandler):
             print("Run ZAT")
             #log_to_df = LogToDataFrame()
             #conn_df = log_to_df.create_dataframe(path + conn)
-
             #print conn_df
             
         elif event.event_type == 'created' and ('.log' not in event.src_path):
             print('created: ' + event.src_path)
             global counter
-            #os.system('sudo mv /home/pi/*.log /mnt/thesis/captures/nms/logs/')
+            
             if counter == 0:
                 counter += 1
+
             elif counter > 0:
                 digit = re.findall(r"\d\d", event.src_path)
-                print(digit)
                 fileToProcess = '/mnt/thesis/captures/nms/' + 'capture-' + str((int(digit[0]) - 1) % 60).zfill(2) + '.pcap'
-                #os.system('zeek -r ' + fileToProcess)
                 os.system('zeek -r ' + fileToProcess)
-                os.system('sudo mv /home/pi/*.log /mnt/thesis/captures/nms/logs/')
+                os.system('sudo mv /home/pi/PiDS/*.log /mnt/thesis/captures/nms/logs/')
 
         elif event.event_type == 'deleted':
             print('deleted: ' + event.src_path)
