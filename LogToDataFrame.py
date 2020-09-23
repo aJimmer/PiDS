@@ -1,4 +1,5 @@
 from ZeekLogReader import ZeekLogReader
+import pandas as pd
 
 class LogToDataFrame(object):
     """LogToDataFrame: Converts a Zeek log to a Pandas DataFrame

@@ -1,4 +1,5 @@
 from FileTailer import FileTailer
+import os, datetime, time
 
 class ZeekLogReader(FileTailer):
     def __init__(self, filepath, delimiter='\t', tail=False, strict=False):
