@@ -53,7 +53,7 @@ class Handler(FileSystemEventHandler):
                 digit = re.findall(r"\d\d", event.src_path)
                 fileToProcess = '/mnt/thesis/captures/nms/' + 'capture-' + str((int(digit[0]) - 1) % 60).zfill(2) + '.pcap'
                 os.system('zeek -r ' + fileToProcess)
-                os.system('sudo mv /home/pi/PiDS/logs/*.log /mnt/thesis/captures/nms/logs/')
+                os.system('sudo mv /home/pi/PiDS/*.log /mnt/thesis/captures/nms/logs/')
 
         elif event.event_type == 'deleted':
             print('deleted: ' + event.src_path)
