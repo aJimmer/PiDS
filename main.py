@@ -37,10 +37,10 @@ class Handler(FileSystemEventHandler):
         if event.is_directory:
             return None
 
-        elif event.event_type == 'created' and ('.log' in event.src_path):
+        elif event.event_type == 'created' and ('conn.log' in event.src_path):
             print("Run ZAT: " + event.src_path)
             log_to_df = LogToDataFrame()
-            conn_df = log_to_df.create_dataframe(path + conn)
+            conn_df = log_to_df.create_dataframe('conn.log')
             
         elif event.event_type == 'created' and ('.log' not in event.src_path):
             print('created: ' + event.src_path)
