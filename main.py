@@ -1,6 +1,6 @@
 import os, time, re, sys, getopt
 import pandas as pd
-import LogToDataFrame
+from LogToDataFrame import LogToDataFrame
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
