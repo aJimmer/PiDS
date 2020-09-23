@@ -1,6 +1,3 @@
-
-import ZeekLogReader
-
 class LogToDataFrame(object):
     """LogToDataFrame: Converts a Zeek log to a Pandas DataFrame
         Notes:

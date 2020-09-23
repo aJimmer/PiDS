@@ -1,5 +1,3 @@
-import FileTailer
-
 class ZeekLogReader(FileTailer):
     def __init__(self, filepath, delimiter='\t', tail=False, strict=False):
         # First check if the file exists and is readable
