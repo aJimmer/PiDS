@@ -37,13 +37,13 @@ class Handler(FileSystemEventHandler):
         if event.is_directory:
             return None
 
-        elif (event.event_type == 'created' or event.event_type == 'modified') and ('conn.log' in event.src_path):
+        elif event.event_type == 'created' and ('conn.log' in event.src_path):
             print("Run ZAT: " + event.src_path)
             log_to_df = LogToDataFrame()
             conn_df = log_to_df.create_dataframe(event.src_path)
             print(conn_df)
 
-        elif (event.event_type == 'created' or event.event_type == 'modified') and ('.log' not in event.src_path):
+        elif event.event_type == 'created' and ('.log' not in event.src_path):
             print('created: ' + event.src_path)
             global counter
             
@@ -54,11 +54,12 @@ class Handler(FileSystemEventHandler):
                 digit = re.findall(r"\d\d", event.src_path)
                 fileToProcess = '/mnt/thesis/captures/nms/' + 'capture-' + str((int(digit[0]) - 1) % 60).zfill(2) + '.pcap'
                 os.system('zeek -r ' + fileToProcess)
+                os.system('sudo rm ' + fileToProcess)
                 os.system('sudo mv /home/pi/PiDS/*.log /mnt/thesis/captures/nms/logs/')
 
         elif event.event_type == 'deleted':
             print('deleted: ' + event.src_path)
-            
+
         elif event.event_type == 'moved':
             print('moved: ' + event.src_path)
 
