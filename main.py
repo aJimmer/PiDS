@@ -37,13 +37,13 @@ class Handler(FileSystemEventHandler):
         if event.is_directory:
             return None
 
-        elif event.event_type == 'created' and ('conn.log' in event.src_path):
+        elif (event.event_type == 'created' or event.event_type == 'modified') and ('conn.log' in event.src_path):
             print("Run ZAT: " + event.src_path)
             log_to_df = LogToDataFrame()
             conn_df = log_to_df.create_dataframe(event.src_path)
             print(conn_df)
-            
-        elif event.event_type == 'created' and ('.log' not in event.src_path):
+
+        elif (event.event_type == 'created' or event.event_type == 'modified') and ('.log' not in event.src_path):
             print('created: ' + event.src_path)
             global counter
             
@@ -58,8 +58,7 @@ class Handler(FileSystemEventHandler):
 
         elif event.event_type == 'deleted':
             print('deleted: ' + event.src_path)
-        #elif event.event_type == 'modified':
-            #print('modified: ' + event.src_path)
+            
         elif event.event_type == 'moved':
             print('moved: ' + event.src_path)
 
