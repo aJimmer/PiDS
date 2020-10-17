@@ -50,7 +50,7 @@ def main():
     for i in range(data.shape[0]):
         input_data = np.array(data.values[i], dtype=np.float32)
 
-        #interpreter.set_tensor(input_details[0]['index'], input_data)
+        interpreter.set_tensor(input_details[0]['index'], input_data)
 
         #interpreter.invoke()
 
