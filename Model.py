@@ -47,8 +47,9 @@ def main():
     
     print("Success!", input_shape, data.values)
 
-    for i in data:
-        input_data = np.array(data[i].values, dtype=np.float32)
+    for i in range(data.shape[0]):
+        print(i)
+'''        input_data = np.array(data[i].values, dtype=np.float32)
 
         interpreter.set_tensor(input_details[0]['index'], input_data)
 
@@ -59,7 +60,7 @@ def main():
         output_data = interpreter.get_tensor(output_details[0]['index'])
         print(output_data)
 
-'''    for _ in range(args.count):
+    for _ in range(args.count):
         start = time.perf_counter()
         interpreter.set_tensor(input_data)
         interpreter.invoke()
