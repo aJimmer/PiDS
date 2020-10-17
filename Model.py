@@ -26,14 +26,13 @@ def main():
 
     #image = Image.open(args.input)
     data = pd.read_csv(args.input)
-    print(data)
-
+    scale = (data.shape[1],)
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
     print("Success!")
 
 if __name__ == '__main__':
     main()
-'''
+
     print('----INFERENCE TIME----')
     print('Note: The first inference is slow because it includes', 'loading the model into Edge TPU memory.')
     for _ in range(args.count):
@@ -42,7 +41,7 @@ if __name__ == '__main__':
         inference_time = time.perf_counter() - start
         objs = detect.get_output(interpreter, args.threshold, scale)
         print('%.2f ms' % (inference_time * 1000))
-
+'''
     print('-------RESULTS--------')
     if not objs:
         print('No objects detected')
