@@ -51,7 +51,7 @@ def main():
     test = np.random.random_sample(input_shape)
     print('test: ', test)
     #input_data = np.array(test, dtype=np.float32)
-    interpreter.set_tensor(input_details[0]['index'], input_data)
+    interpreter.set_tensor(input_details[0]['index'], np.array(input_data[0]))
     
     print("Success!")
     #interpreter.invoke()
