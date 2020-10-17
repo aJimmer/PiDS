@@ -3,6 +3,7 @@ import argparse
 import time
 import pandas as pd
 import numpy as np
+import tensorflow as tf
 
 #interpreter = tflite.Interpreter(model_path, experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
 
@@ -25,12 +26,10 @@ def main():
     interpreter = make_interpreter(args.model)
     interpreter.allocate_tensors()
 
-    #image = Image.open(args.input)
     data = pd.read_csv(args.input)
     data_id = data.ts
     data = data.drop('ts', axis=1)
-    input_data = np.array(data.values, dtype=np.float32)
-    #output_details = interpreter.get_output_details()
+    #input_data = np.array(data.values, dtype=np.float32)
  
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
 
@@ -47,11 +46,10 @@ def main():
 
 
     #for i in range(data.shape[0]):
-    print('data: ', type(input_data[0]).shape)
+    print(input_details)
     test = np.random.random_sample(input_shape)
-    print('test: ', type(test.shape))
     #input_data = np.array(test, dtype=np.float32)
-    interpreter.set_tensor(input_details[0]['index'], np.array(input_data[0]))
+    interpreter.set_tensor(input_details[0]['index'], test)
     
     print("Success!")
     #interpreter.invoke()
