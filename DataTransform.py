@@ -34,7 +34,7 @@ def encode_numeric_zscore(df, name, mean=None, sd=None):
     df[name] = (df[name] - mean) / sd
 
 log_to_df = LogToDataFrame()
-conn_log_df = log_to_df.create_dataframe('/Users/Jimenez/Desktop/conn.log')
+conn_log_df = log_to_df.create_dataframe('/home/mendel/conn.log')
 
 conn_log_df['key'] = list(zip(conn_log_df["id.orig_h"], conn_log_df["id.orig_p"], conn_log_df["id.resp_h"], conn_log_df["id.resp_p"]))
 conn_log_df['orig_bytes'] = conn_log_df['orig_bytes'].fillna(0)
