@@ -44,20 +44,19 @@ def main():
 
     # Test the model on random input data.
     input_shape = input_details[0]['shape']
+
+    #for i in range(data.shape[0]):
+    input_data = np.array(data.values[0], dtype=np.float32)
+
+    interpreter.set_tensor(input_details[0]['index'], input_data)
     
-    print("Success!", input_shape, data.values)
+    print("Success!")
+    #interpreter.invoke()
 
-    for i in range(data.shape[0]):
-        input_data = np.array(data.values[i], dtype=np.float32)
-
-        interpreter.set_tensor(input_details[0]['index'], input_data)
-
-        #interpreter.invoke()
-
-        # The function `get_tensor()` returns a copy of the tensor data.
-        # Use `tensor()` in order to get a pointer to the tensor.
-        #output_data = interpreter.get_tensor(output_details[0]['index'])
-        #print(output_data)
+    # The function `get_tensor()` returns a copy of the tensor data.
+    # Use `tensor()` in order to get a pointer to the tensor.
+    #output_data = interpreter.get_tensor(output_details[0]['index'])
+    #print(output_data)
 '''
     for _ in range(args.count):
         start = time.perf_counter()
