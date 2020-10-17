@@ -45,8 +45,9 @@ def main():
 
 
     for i in range(data.shape[0]):
-        print(i)
+        print(i, input_data[i])
         start = time.perf_counter()
+
         interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data[i], axis=0))
         
         interpreter.invoke()
