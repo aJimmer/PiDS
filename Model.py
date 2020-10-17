@@ -29,7 +29,10 @@ def main():
     #data.values
 
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
+    print("Success!")
 
+if __name__ == '__main__':
+    main()
 '''
     print('----INFERENCE TIME----')
     print('Note: The first inference is slow because it includes', 'loading the model into Edge TPU memory.')
