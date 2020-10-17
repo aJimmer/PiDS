@@ -27,7 +27,8 @@ def main():
 
     #image = Image.open(args.input)
     data = pd.read_csv(args.input)
-    data = data.set_index('ts')
+    data_id = data.ts
+    data = data.drop('ts', axis=1)
     #input_data = np.array(data.values, dtype=np.float32)
     #output_details = interpreter.get_output_details()
  
@@ -43,7 +44,7 @@ def main():
 
     # Test the model on random input data.
     input_shape = input_details[0]['shape']
-    input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
+    input_data = np.array(data.values, dtype=np.float32)
 
     print("Success!", input_shape, input_data)
 
