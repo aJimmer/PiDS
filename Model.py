@@ -47,11 +47,10 @@ def main():
 
 
     #for i in range(data.shape[0]):
-    #input_data = np.array(data.values[0], dtype=np.float32)
     print('data: ', input_data[0])
     test = np.random.random_sample(input_shape)
     print('test: ', test)
-    input_data = np.array(test, dtype=np.float32)
+    #input_data = np.array(test, dtype=np.float32)
     interpreter.set_tensor(input_details[0]['index'], input_data)
     
     print("Success!")
