@@ -47,7 +47,7 @@ def main():
 
     #for i in range(data.shape[0]):
     #input_data = np.array(data.values[0], dtype=np.float32)
-    print('data: ', np.array(data.values[0], dtype=np.float32))
+    print('data: ', data.to_numpy()[0], dtype=np.float32)
     test = np.random.random_sample(input_shape)
     print('test: ', test)
     input_data = np.array(test, dtype=np.float32)
