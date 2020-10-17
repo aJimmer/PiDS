@@ -75,6 +75,6 @@ final_df['label'] = 1
 Y_normal = final_df['label']
 X_normal = final_df.drop(["x", "y","proto", "service", "local_orig", "local_resp", "history", "id.orig_h", "id.resp_h","uid", "key", "tunnel_parents", "conn_state", "label"], axis = 1)
 
-X_normal.to_csv('/home/pi/PiDS/data/data.csv')
-os.system('sudo mv /home/pi/PiDS/data/data.csv /mnt/thesis/captures/nms/data/')
+X_normal.to_csv('/home/pi/PiDS/data.csv')
+os.system('sudo mv /home/pi/PiDS/data.csv /mnt/thesis/captures/nms/data/')
 
