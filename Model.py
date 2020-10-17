@@ -52,7 +52,7 @@ def main():
         
         interpreter.invoke()
         inference_time = time.perf_counter() - start
-        output_data = interpreter.get_tensor(output_details[0]['index'])
+        output_data = interpreter.get_output_details()
         print(output_data, '%.2f ms' % (inference_time * 1000))
         
 '''
