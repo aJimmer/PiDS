@@ -44,12 +44,13 @@ def main():
 
     # Test the model on random input data.
     input_shape = input_details[0]['shape']
-    input_data = np.array(data.values, dtype=np.float32)
+    
+    print("Success!", input_shape, data.values)
 
-    print("Success!", input_shape, input_data)
+    for i in data:
+        input_data = np.array(data[i].values, dtype=np.float32)
 
-    for i in input_data:
-        interpreter.set_tensor(input_details[0]['index'], input_data[i])
+        interpreter.set_tensor(input_details[0]['index'], input_data)
 
         interpreter.invoke()
 
