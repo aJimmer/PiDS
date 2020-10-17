@@ -47,9 +47,9 @@ def main():
 
 
     #for i in range(data.shape[0]):
-    print('data: ', input_data[0])
+    print('data: ', type(input_data[0]))
     test = np.random.random_sample(input_shape)
-    print('test: ', test)
+    print('test: ', type(test))
     #input_data = np.array(test, dtype=np.float32)
     interpreter.set_tensor(input_details[0]['index'], np.array(input_data[0]))
     
