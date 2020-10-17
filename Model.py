@@ -28,7 +28,7 @@ def main():
     data = pd.read_csv(args.input)
     data_id = data.ts
     data = data.drop('ts', axis=1)
-    #input_data = np.array(data.values, dtype=np.float32)
+    input_data2 = np.array(data.values, dtype=np.float32)
  
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
 
@@ -47,7 +47,9 @@ def main():
     #for i in range(data.shape[0]):
     print(input_details) 
     input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
-    print(input_data, type(input_data), input_data.shape)
+    
+    print('input_data: ', input_data, type(input_data), input_data.shape)
+    print('input_data2: ', input_data2, type(input_data2), input_data.shape2)
     interpreter.set_tensor(input_details[0]['index'], input_data)
     
     print("Success!")
