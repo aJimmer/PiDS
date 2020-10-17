@@ -3,7 +3,6 @@ import argparse
 import time
 import pandas as pd
 import numpy as np
-import tensorflow as tf
 
 #interpreter = tflite.Interpreter(model_path, experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
 
