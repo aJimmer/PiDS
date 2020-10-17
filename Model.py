@@ -45,9 +45,11 @@ def main():
     # Test the model on random input data.
     input_shape = input_details[0]['shape']
 
+    data = data.to_numpy(dtype=np.float32)
+
     #for i in range(data.shape[0]):
     #input_data = np.array(data.values[0], dtype=np.float32)
-    print('data: ', data.to_numpy()[0], dtype=np.float32)
+    print('data: ', data[0])
     test = np.random.random_sample(input_shape)
     print('test: ', test)
     input_data = np.array(test, dtype=np.float32)
