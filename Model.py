@@ -25,8 +25,8 @@ def main():
     interpreter.allocate_tensors()
 
     #image = Image.open(args.input)
-    #data = pd.read()
-    #data.values
+    data = pd.read_csv(args.input)
+    print(data)
 
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
     print("Success!")
