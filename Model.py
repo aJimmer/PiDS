@@ -28,16 +28,35 @@ def main():
     #image = Image.open(args.input)
     data = pd.read_csv(args.input)
     data = data.set_index('ts')
-    input_shape = (data.shape[1],)
-    input_data = np.array(data.values, dtype=np.float32)
-    output_details = interpreter.get_output_details()
+    #input_data = np.array(data.values, dtype=np.float32)
+    #output_details = interpreter.get_output_details()
  
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
-    print("Success!", input_shape)
+
 
     print('----INFERENCE TIME----')
     print('Note: The first inference is slow because it includes', 'loading the model into Edge TPU memory.')
-    for _ in range(args.count):
+
+    # Get input and output tensors.
+    input_details = interpreter.get_input_details()
+    output_details = interpreter.get_output_details()
+
+    # Test the model on random input data.
+    input_shape = input_details[0]['shape']
+    input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
+
+    print("Success!", input_shape, input_data)
+
+    interpreter.set_tensor(input_details[0]['index'], input_data)
+
+    interpreter.invoke()
+
+    # The function `get_tensor()` returns a copy of the tensor data.
+    # Use `tensor()` in order to get a pointer to the tensor.
+    output_data = interpreter.get_tensor(output_details[0]['index'])
+    print(output_data)
+
+'''    for _ in range(args.count):
         start = time.perf_counter()
         interpreter.set_tensor(input_data)
         interpreter.invoke()
@@ -45,7 +64,7 @@ def main():
         output_data = interpreter.get_tensor(output_details[0]['index'])
         print(output_data)
         print('%.2f ms' % (inference_time * 1000))
-'''
+
     print('-------RESULTS--------')
     if not objs:
         print('No objects detected')
