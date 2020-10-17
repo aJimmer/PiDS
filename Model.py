@@ -49,7 +49,7 @@ def main():
     input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
     
     print('input_data: ', input_data, type(input_data), input_data.shape)
-    print('input_data2: ', input_data2, type(input_data2), input_data.shape2)
+    print('input_data2: ', input_data2, type(input_data2), input_data2.shape)
     interpreter.set_tensor(input_details[0]['index'], input_data)
     
     print("Success!")
