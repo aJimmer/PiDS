@@ -2,6 +2,7 @@ import tflite_runtime.interpreter as tflite
 import argparse
 import time
 import pandas as pd
+import numpy as np
 
 #interpreter = tflite.Interpreter(model_path, experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
 
@@ -26,17 +27,22 @@ def main():
 
     #image = Image.open(args.input)
     data = pd.read_csv(args.input)
-    scale = (data.shape[1],)
+    input_shape = (data.shape[1],)
+    input_data = np.array(data.values, dtype=np.float32)
+    output_details = interpreter.get_output_details()
+ 
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
-    print("Success!", scale)
+    print("Success!", input_shape)
 
     print('----INFERENCE TIME----')
     print('Note: The first inference is slow because it includes', 'loading the model into Edge TPU memory.')
     for _ in range(args.count):
         start = time.perf_counter()
+        interpreter.set_tensor(interpreter.get_input_details()[0]['index'], input_data)
         interpreter.invoke()
         inference_time = time.perf_counter() - start
-        objs = detect.get_output(interpreter, args.threshold, scale)
+        output_data = interpreter.get_tensor(output_details[0]['index'])
+        print(output_data)
         print('%.2f ms' % (inference_time * 1000))
 '''
     print('-------RESULTS--------')
