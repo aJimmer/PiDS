@@ -48,14 +48,15 @@ def main():
 
     print("Success!", input_shape, input_data)
 
-    interpreter.set_tensor(input_details[0]['index'], input_data)
+    for i in input_data:
+        interpreter.set_tensor(input_details[0]['index'], input_data[i])
 
-    interpreter.invoke()
+        interpreter.invoke()
 
-    # The function `get_tensor()` returns a copy of the tensor data.
-    # Use `tensor()` in order to get a pointer to the tensor.
-    output_data = interpreter.get_tensor(output_details[0]['index'])
-    print(output_data)
+        # The function `get_tensor()` returns a copy of the tensor data.
+        # Use `tensor()` in order to get a pointer to the tensor.
+        output_data = interpreter.get_tensor(output_details[0]['index'])
+        print(output_data)
 
 '''    for _ in range(args.count):
         start = time.perf_counter()
