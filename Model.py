@@ -28,10 +28,7 @@ def main():
     data = pd.read_csv(args.input)
     scale = (data.shape[1],)
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
-    print("Success!")
-
-if __name__ == '__main__':
-    main()
+    print("Success!", scale)
 
     print('----INFERENCE TIME----')
     print('Note: The first inference is slow because it includes', 'loading the model into Edge TPU memory.')
@@ -58,3 +55,5 @@ if __name__ == '__main__':
         image.save(args.output)
         image.show()
         '''
+if __name__ == '__main__':
+    main()
