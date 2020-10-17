@@ -39,7 +39,7 @@ def main():
     print('Note: The first inference is slow because it includes', 'loading the model into Edge TPU memory.')
     for _ in range(args.count):
         start = time.perf_counter()
-        interpreter.set_tensor(interpreter.get_input_details()[0]['index'], input_data)
+        interpreter.set_tensor(input_data)
         interpreter.invoke()
         inference_time = time.perf_counter() - start
         output_data = interpreter.get_tensor(output_details[0]['index'])
