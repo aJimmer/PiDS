@@ -50,7 +50,7 @@ def main():
     
     print('input_data: ', input_data, type(input_data), input_data.shape)
     print('input_data2: ', input_data2, type(input_data2), input_data2.shape)
-    interpreter.set_tensor(input_details[0]['index'], np.expand_dim(input_data2[0], axis=0))
+    interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data2[0], axis=0))
     
     print("Success!")
     #interpreter.invoke()
