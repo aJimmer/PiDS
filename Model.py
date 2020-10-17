@@ -50,7 +50,7 @@ def main():
     
     print('input_data: ', input_data, type(input_data), input_data.shape)
     print('input_data2: ', input_data2, type(input_data2), input_data2.shape)
-    interpreter.set_tensor(input_details[0]['index'], input_data)
+    interpreter.set_tensor(input_details[0]['index'], input_data2)
     
     print("Success!")
     #interpreter.invoke()
