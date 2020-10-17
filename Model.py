@@ -27,6 +27,7 @@ def main():
 
     #image = Image.open(args.input)
     data = pd.read_csv(args.input)
+    data = data.set_index('ts')
     input_shape = (data.shape[1],)
     input_data = np.array(data.values, dtype=np.float32)
     output_details = interpreter.get_output_details()
