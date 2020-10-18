@@ -38,6 +38,7 @@ def main():
 
     # Get input and output tensors.
     input_details = interpreter.get_input_details()
+    input_index = input_details[0]['index']
     output_details = interpreter.get_output_details()
 
     # Test the model on random input data.
@@ -48,8 +49,9 @@ def main():
         print(i, input_data[i])
         start = time.perf_counter()
 
-        interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data[i], axis=0))
-        
+        #interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data[i], axis=0))
+        input_tensor = np.expand_dims(input_data[i], axis=0)
+        interpreter.set_tensor(input_index, input_tensor)
         interpreter.invoke()
         
         inference_time = time.perf_counter() - start
