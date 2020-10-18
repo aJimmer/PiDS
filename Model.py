@@ -44,19 +44,19 @@ def main():
     input_shape = input_details[0]['shape']
 
 
-    for i in range(data.shape[0]):
-        print(i, input_data[i])
-        start = time.perf_counter()
+    #for i in range(data.shape[0]):
+    
+    start = time.perf_counter()
 
-        #interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data[i], axis=0))
-        input_tensor = np.expand_dims(input_data[i], axis=0)
-        interpreter.set_tensor(input_index, input_tensor)
-        interpreter.invoke()
-        
-        inference_time = time.perf_counter() - start
-        output_data = interpreter.get_tensor(output_details[0]['index'])
-        results = np.squeeze(output_data)
-        print(output_data, results, '%.2f ms' % (inference_time * 1000))
+    #interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data[i], axis=0))
+    input_tensor = np.expand_dims(input_data[0], axis=0)
+    interpreter.set_tensor(input_index, input_tensor)
+    interpreter.invoke()
+    
+    inference_time = time.perf_counter() - start
+    output_data = interpreter.get_output_details()
+    
+    print(output_data, '%.2f ms' % (inference_time * 1000))
         
 '''
     for _ in range(args.count):
