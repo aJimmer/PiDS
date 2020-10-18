@@ -28,7 +28,7 @@ def main():
     data = pd.read_csv(args.input)
     data_id = data.ts
     data = data.drop('ts', axis=1)
-    input_data = np.array(data.values, dtype=np.float32)
+    input_data = np.array(data.values, dtype=np.float16)
  
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
 
@@ -51,6 +51,7 @@ def main():
         interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data[i], axis=0))
         
         interpreter.invoke()
+        
         inference_time = time.perf_counter() - start
         output_data = interpreter.get_output_details()
         print(output_data, '%.2f ms' % (inference_time * 1000))
