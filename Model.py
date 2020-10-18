@@ -8,10 +8,10 @@ import numpy as np
 
 def make_interpreter(model_file):
     model_file, *device = model_file.split('@')
-    return tflite.Interpreter(
-        model_path=model_file,
-        experimental_delegates=[
-            tflite.load_delegate('libedgetpu.so.1', {'device': device[0]} if device else {})])
+    return tflite.Interpreter(model_path=model_file)
+       # model_path=model_file,
+        #experimental_delegates=[
+         #   tflite.load_delegate('libedgetpu.so.1', {'device': device[0]} if device else {})])
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -28,7 +28,7 @@ def main():
     data = pd.read_csv(args.input)
     data_id = data.ts
     data = data.drop('ts', axis=1)
-    input_data = np.array(data.values, dtype=np.float16)
+    input_data = np.array(data.values, dtype=np.float32)
  
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
 
