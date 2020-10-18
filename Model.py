@@ -55,7 +55,7 @@ def main():
     
     inference_time = time.perf_counter() - start
     output_data = interpreter.get_output_details()
-    prediction = interpreter.get_tensor(output_data[14]['index'])[0] 
+    prediction = interpreter.get_tensor(output_data[0]['index'])[14] 
     print((prediction).astype(float))
     print(output_data, '%.2f ms' % (inference_time * 1000))
         
