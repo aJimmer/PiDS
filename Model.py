@@ -55,7 +55,7 @@ def main():
     
     inference_time = time.perf_counter() - start
     output_data = interpreter.get_output_details()
-    prediction = interpreter.get_tensor(output_data[0]['index'])[14] 
+    prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
     print((prediction).astype(float))
     print(output_data, '%.2f ms' % (inference_time * 1000))
         
@@ -87,3 +87,14 @@ def main():
         '''
 if __name__ == '__main__':
     main()
+
+'''
+Next steps:
+    - update interpreter to run on TPU with float 16 values
+    - recompile model and optimize for TPU and float 16 values
+    - debug Interpreter.invoke with test data
+    - commpute reconstruction errors
+    - compare reconstruction errors against threshold for normal or malicious 
+
+    Note: on mdt shell startup, python3 Model.py -m /home/mendel/model.tflite -i /home/mendel/nms/data/data.csv can be used to run this code 
+    ''' 
