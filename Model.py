@@ -39,7 +39,6 @@ def main():
     # Get input and output tensors.
     input_details = interpreter.get_input_details()
     input_index = input_details[0]['index']
-    output_details = interpreter.get_output_details()
 
     # Test the model on random input data.
     input_shape = input_details[0]['shape']
@@ -55,8 +54,9 @@ def main():
         interpreter.invoke()
         
         inference_time = time.perf_counter() - start
-        output_data = interpreter.get_output_details()[0]['index']
-        print(output_data, '%.2f ms' % (inference_time * 1000))
+        output_data = interpreter.get_tensor(output_details[0]['index'])
+        results = np.squeeze(output_data)
+        print(output_data, results, '%.2f ms' % (inference_time * 1000))
         
 '''
     for _ in range(args.count):
