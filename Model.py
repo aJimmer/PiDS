@@ -8,10 +8,9 @@ import numpy as np
 
 def make_interpreter(model_file):
     model_file, *device = model_file.split('@')
-    return tflite.Interpreter(model_path=model_file)
-       # model_path=model_file,
-        #experimental_delegates=[
-         #   tflite.load_delegate('libedgetpu.so.1', {'device': device[0]} if device else {})])
+    return tflite.Interpreter(model_path=model_file, model_path=model_file,
+        experimental_delegates=[
+           tflite.load_delegate('libedgetpu.so.1', {'device': device[0]} if device else {})])
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
