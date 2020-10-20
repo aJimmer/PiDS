@@ -53,7 +53,7 @@ def main():
     #interpreter.set_tensor(input_index, input_tensor)
     
     input_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
-i   nterpreter.set_tensor(input_details[0]['index'], input_data)
+    interpreter.set_tensor(input_details[0]['index'], input_data)
     interpreter.invoke()
     
     inference_time = time.perf_counter() - start
