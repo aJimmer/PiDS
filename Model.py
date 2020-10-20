@@ -50,11 +50,11 @@ def main():
     #interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data[i], axis=0))
     input_tensor = np.expand_dims(input_data[0], axis=0)
     print('input tensor: ', type(input_tensor))
-    interpreter.set_tensor(input_details[0]['index'], input_tensor)
+    #interpreter.set_tensor(input_details[0]['index'], input_tensor)
     
     input_test_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
     print('input test tensor: ', type(input_test_data))
-    #interpreter.set_tensor(input_details[0]['index'], input_test_data)
+    interpreter.set_tensor(input_details[0]['index'], input_test_data)
     interpreter.invoke()
     
     inference_time = time.perf_counter() - start
