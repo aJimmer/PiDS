@@ -53,7 +53,7 @@ def main():
     print('input tensor: ', type(input_tensor))
     #interpreter.set_tensor(input_details[0]['index'], input_tensor)
     
-    input_test_data = np.array(np.random.random_sample(input_shape))
+    input_test_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
     print('input test tensor: ', type(input_test_data))
     interpreter.set_tensor(input_details[0]['index'], input_test_data)
     interpreter.invoke()
