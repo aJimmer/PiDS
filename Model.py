@@ -28,7 +28,7 @@ def main():
     data = pd.read_csv(args.input)
     data_id = data.ts
     data = data.drop('ts', axis=1)
-    input_data = np.array(data.values)
+    input_data = np.array(data.values, dtype=np.float32)
  
     #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
 
