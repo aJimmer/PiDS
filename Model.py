@@ -14,7 +14,7 @@ def make_interpreter(model_file):
 
 def main():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
-    parser.add_argument('-m', '--model', required=True, help='File path of .tflite file.', default='/home/mendel/model.tflite')
+    parser.add_argument('-m', '--model', required=True, help='File path of .tflite file.', default='/home/mendel/PiDS/model.tflite')
     parser.add_argument('-i', '--input', required=True, help='File path of input data.', default='/home/mendel/nms/data/data.csv')
     parser.add_argument('-t', '--threshold', type=float, default=0.38, help='Score threshold for detected objects.')
     parser.add_argument('-o', '--output',help='File path for the result image with annotations')
