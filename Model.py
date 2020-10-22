@@ -57,12 +57,12 @@ def main():
         prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
         mse = np.mean(np.power(input_tensor - prediction, 2), axis=1)
         #score = np.squeeze(interpreter.tensor(interpreter.get_output_details()[2]['index'])())
-        print('mse:', mse)
+        #print('mse:', mse)
         #print(output_data, '%.2f ms' % (inference_time * 1000))
         if args.threshold < mse[0]:
-            print('anomoly')
+            print('Anomoly')
         else:
-            print('normal')
+            print('Normal')
         
 if __name__ == '__main__':
     main()
