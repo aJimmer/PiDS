@@ -21,51 +21,42 @@ def main():
     parser.add_argument('-c', '--count', type=int, default=5, help='Number of times to run inference')
     args = parser.parse_args()
 
-    #interpreter = make_interpreter(args.model)
-    interpreter = tflite.Interpreter(args.model, experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
-    interpreter.allocate_tensors()
 
     data = pd.read_csv(args.input)
     data_id = data.ts
     data = data.drop('ts', axis=1)
     data = data.fillna(0)
-
-    print(data.info())
     input_data = np.array(data.values, dtype=np.float32)
- 
-    #scale = detect.set_input(interpreter, image.size,lambda size: image.resize(size, Image.ANTIALIAS))
-
 
     print('----INFERENCE TIME----')
     print('Note: The first inference is slow because it includes', 'loading the model into Edge TPU memory.')
 
+
+    interpreter = make_interpreter(args.model)
+    interpreter.allocate_tensors()
+
     # Get input and output tensors.
     input_details = interpreter.get_input_details()
-    input_index = input_details[0]['index']
 
     # Test the model on random input data.
     input_shape = input_details[0]['shape']
 
 
-    #for i in range(data.shape[0]):
+    for i in range(data.shape[0]):
     
-    start = time.perf_counter()
+        start = time.perf_counter()
 
-    #interpreter.set_tensor(input_details[0]['index'], np.expand_dims(input_data[i], axis=0))
-    input_tensor = np.expand_dims(input_data[0], axis=0)
-    print('input tensor: ', input_tensor)
-    interpreter.set_tensor(input_details[0]['index'], input_tensor)
+        input_tensor = np.expand_dims(input_data[0], axis=0)
+        #print('input tensor: ', input_tensor)
+        interpreter.set_tensor(input_details[0]['index'], input_tensor)        
+        interpreter.invoke()
     
-    input_test_data = np.array(np.random.random_sample(input_shape), dtype=np.float32)
-    print('input test tensor: ', input_test_data)
-    #interpreter.set_tensor(input_details[0]['index'], input_test_data)
-    interpreter.invoke()
-    
-    inference_time = time.perf_counter() - start
-    output_data = interpreter.get_output_details()
-    prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
-    print((prediction).astype(float))
-    print(output_data, '%.2f ms' % (inference_time * 1000))
+        inference_time = time.perf_counter() - start
+        
+        output_data = interpreter.get_output_details()
+        prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
+        print((prediction).astype(float))
+        print(output_data, '%.2f ms' % (inference_time * 1000))
         
 '''
     for _ in range(args.count):
