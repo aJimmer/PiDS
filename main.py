@@ -64,7 +64,7 @@ class Handler(FileSystemEventHandler):
         elif event.event_type == 'created' and ('conn.log' in event.src_path):
             print("Run ZAT: " + event.src_path)
             log_to_df = LogToDataFrame()
-            conn_df = log_to_df.create_dataframe(event.src_path)
+            conn_log_df = log_to_df.create_dataframe(event.src_path)
             
             conn_log_df['key'] = list(zip(conn_log_df["id.orig_h"], conn_log_df["id.orig_p"], conn_log_df["id.resp_h"], conn_log_df["id.resp_p"]))
             conn_log_df['orig_bytes'] = conn_log_df['orig_bytes'].fillna(0)
