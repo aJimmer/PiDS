@@ -60,9 +60,9 @@ def main():
         #print('mse:', mse)
         #print(output_data, '%.2f ms' % (inference_time * 1000))
         if args.threshold < mse[0]:
-            print('Anomoly')
+            print('%.2f ms' % (inference_time * 1000), mse[0],'anomaly detected!!!')
         else:
-            print('Normal')
+            print('%.2f ms' % (inference_time * 1000), mse[0])
         
 if __name__ == '__main__':
     main()
