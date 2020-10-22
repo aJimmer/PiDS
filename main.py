@@ -117,7 +117,7 @@ class Handler(FileSystemEventHandler):
             X_normal.to_csv('/home/pi/PiDS/data.csv')
             os.system('sudo mv /home/pi/PiDS/data.csv /mnt/thesis/captures/nms/data/')
 
-        elif event.event_type == 'created' and ('.log' not in event.src_path):
+        elif event.event_type == 'created' and ('.log' not in event.src_path) and ('.csv' not in event.src_path):
             print('created: ' + event.src_path)
             global counter
             
