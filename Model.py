@@ -21,7 +21,8 @@ def main():
     parser.add_argument('-c', '--count', type=int, default=5, help='Number of times to run inference')
     args = parser.parse_args()
 
-    interpreter = make_interpreter(args.model)
+    #interpreter = make_interpreter(args.model)
+    interpreter = tflite.Interpreter(args.model, experimental_delegates=[tflite.load_delegate('libedgetpu.so.1')])
     interpreter.allocate_tensors()
 
     data = pd.read_csv(args.input)
