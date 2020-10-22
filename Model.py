@@ -28,6 +28,8 @@ def main():
     data = pd.read_csv(args.input)
     data_id = data.ts
     data = data.drop('ts', axis=1)
+    data = data.fillna(0)
+
     print(data.info())
     input_data = np.array(data.values, dtype=np.float32)
  
