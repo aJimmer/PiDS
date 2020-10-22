@@ -46,7 +46,7 @@ def main():
     
         start = time.perf_counter()
 
-        input_tensor = np.expand_dims(input_data[0], axis=0)
+        input_tensor = np.expand_dims(input_data[i], axis=0)
         #print('input tensor: ', input_tensor)
         interpreter.set_tensor(input_details[0]['index'], input_tensor)        
         interpreter.invoke()
