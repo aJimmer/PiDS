@@ -109,13 +109,12 @@ class Handler(FileSystemEventHandler):
                 output_data = interpreter.get_output_details()
                 prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
                 mse = np.mean(np.power(input_tensor - prediction, 2), axis=1)
-                #score = np.squeeze(interpreter.tensor(interpreter.get_output_details()[2]['index'])())
-                #print('mse:', mse)
-                #print(output_data, '%.2f ms' % (inference_time * 1000))
-                if args.threshold < mse[0]:
+                
+                if 10 < mse[0]:
                     print('%.2f ms' % (inference_time * 1000), mse[0],'anomaly detected!!!')
                 else:
                     print('%.2f ms' % (inference_time * 1000), mse[0])
+
         elif event.event_type == 'created' and ('conn.log' in event.src_path):
             print("Run ZAT: " + event.src_path)
             log_to_df = LogToDataFrame()
