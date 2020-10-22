@@ -129,7 +129,7 @@ class Handler(FileSystemEventHandler):
                 fileToProcess = '/mnt/thesis/captures/nms/' + 'capture-' + str((int(digit[0]) - 1) % 60).zfill(2) + '.pcap'
                 print('Processing file: ', fileToProcess)
                 os.system('zeek -r ' + fileToProcess)
-                os.system('sudo rm ' + fileToProcess)
+                #os.system('sudo rm ' + fileToProcess)
                 os.system('sudo mv /home/pi/PiDS/*.log /mnt/thesis/captures/nms/logs/')
 
         elif event.event_type == 'deleted':
