@@ -55,35 +55,10 @@ def main():
         
         output_data = interpreter.get_output_details()
         prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
-        print((prediction).astype(float))
+        score = np.squeeze(interpreter.tensor(interpreter.get_output_details()[2]['index'])())
+        print('score:', score)
         print(output_data, '%.2f ms' % (inference_time * 1000))
         
-'''
-    for _ in range(args.count):
-        start = time.perf_counter()
-        interpreter.set_tensor(input_data)
-        interpreter.invoke()
-        inference_time = time.perf_counter() - start
-        output_data = interpreter.get_tensor(output_details[0]['index'])
-        print(output_data)
-        
-
-    print('-------RESULTS--------')
-    if not objs:
-        print('No objects detected')
-
-    for obj in objs:
-        print(labels.get(obj.id, obj.id))
-        print('  id:    ', obj.id)
-        print('  score: ', obj.score)
-        print('  bbox:  ', obj.bbox)
-
-    if args.output:
-        image = image.convert('RGB')
-        draw_objects(ImageDraw.Draw(image), objs, labels)
-        image.save(args.output)
-        image.show()
-        '''
 if __name__ == '__main__':
     main()
 
