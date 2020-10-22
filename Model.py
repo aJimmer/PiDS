@@ -55,8 +55,8 @@ def main():
         
         output_data = interpreter.get_output_details()
         prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
-        score = np.squeeze(interpreter.tensor(interpreter.get_output_details()[2]['index'])())
-        print('score:', score)
+        #score = np.squeeze(interpreter.tensor(interpreter.get_output_details()[2]['index'])())
+        #print('score:', score)
         print(output_data, '%.2f ms' % (inference_time * 1000))
         
 if __name__ == '__main__':
