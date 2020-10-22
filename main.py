@@ -75,7 +75,7 @@ class Handler(FileSystemEventHandler):
 
         elif event.event_type == 'created' and ('data.csv' in event.src_path):
 
-            data = pd.read_csv('/mnt/thesis/captures/nms/data')
+            data = pd.read_csv('/mnt/thesis/captures/nms/data/data.csv')
             data_id = data.ts
             data = data.drop('ts', axis=1)
             data = data.fillna(0)
@@ -109,7 +109,7 @@ class Handler(FileSystemEventHandler):
                 output_data = interpreter.get_output_details()
                 prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
                 mse = np.mean(np.power(input_tensor - prediction, 2), axis=1)
-                
+
                 if 10 < mse[0]:
                     print('%.2f ms' % (inference_time * 1000), mse[0],'anomaly detected!!!')
                 else:
