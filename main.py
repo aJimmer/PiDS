@@ -99,7 +99,7 @@ class Handler(FileSystemEventHandler):
             final_df['jy'] = jitter(final_df['y'])
 
             for i in numeric_names:
-            encode_numeric_zscore(final_df, i)
+                encode_numeric_zscore(final_df, i)
 
             final_df['label'] = 1
             Y_normal = final_df['label']
