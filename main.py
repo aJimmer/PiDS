@@ -117,7 +117,7 @@ class Handler(FileSystemEventHandler):
 
             elif counter > 0:
                 digit = re.findall(r"\d\d", event.src_path)
-                fileToProcess = '/mnt/thesis/captures/nms/' + 'capture-' + str((int(digit[0]) - 1) % 24).zfill(2) + '.pcap'
+                fileToProcess = '/mnt/thesis/captures/nms/' + 'capture-' + str((int(digit[0]) - 1) % 60).zfill(2) + '.pcap'
                 print('Processing file: ', fileToProcess)
                 os.system('zeek -r ' + fileToProcess)
                 os.system('sudo rm ' + fileToProcess)
