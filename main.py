@@ -4,6 +4,15 @@ from LogToDataFrame import LogToDataFrame
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
+import subprocess, time, random, os, datetime, itertools
+import numpy as np
+
+from DataFrameToMatrix import DataFrameToMatrix
+
+from sklearn.decomposition import PCA
+from sklearn.cluster import KMeans
+from sklearn import metrics
+
 counter = 0
 directory = '/mnt/thesis/captures/nms/'
 log = 'conn.log'
