@@ -13,6 +13,9 @@ from sklearn.decomposition import PCA
 from sklearn.cluster import KMeans
 from sklearn import metrics
 
+import tflite_runtime.interpreter as tflite
+import argparse
+
 counter = 0
 directory = '/mnt/thesis/captures/nms/'
 log = 'conn.log'
@@ -70,6 +73,49 @@ class Handler(FileSystemEventHandler):
         if event.is_directory:
             return None
 
+        elif event.event_type == 'created' and ('data.csv' in event.src_path):
+
+            data = pd.read_csv('/mnt/thesis/captures/nms/data')
+            data_id = data.ts
+            data = data.drop('ts', axis=1)
+            data = data.fillna(0)
+            input_data = np.array(data.values, dtype=np.float32)
+
+            print('----INFERENCE TIME----')
+            print('Note: The first inference is slow because it includes', 'loading the model into Edge TPU memory.')
+
+
+            interpreter = tflite.Interpreter('/home/pi/PiDS/model.tflite')
+            interpreter.allocate_tensors()
+
+            # Get input and output tensors.
+            input_details = interpreter.get_input_details()
+
+            # Test the model on random input data.
+            input_shape = input_details[0]['shape']
+
+
+            for i in range(data.shape[0]):
+            
+                start = time.perf_counter()
+
+                input_tensor = np.expand_dims(input_data[i], axis=0)
+                #print('input tensor: ', input_tensor)
+                interpreter.set_tensor(input_details[0]['index'], input_tensor)        
+                interpreter.invoke()
+            
+                inference_time = time.perf_counter() - start
+                
+                output_data = interpreter.get_output_details()
+                prediction = interpreter.get_tensor(output_data[0]['index'])[0] 
+                mse = np.mean(np.power(input_tensor - prediction, 2), axis=1)
+                #score = np.squeeze(interpreter.tensor(interpreter.get_output_details()[2]['index'])())
+                #print('mse:', mse)
+                #print(output_data, '%.2f ms' % (inference_time * 1000))
+                if args.threshold < mse[0]:
+                    print('%.2f ms' % (inference_time * 1000), mse[0],'anomaly detected!!!')
+                else:
+                    print('%.2f ms' % (inference_time * 1000), mse[0])
         elif event.event_type == 'created' and ('conn.log' in event.src_path):
             print("Run ZAT: " + event.src_path)
             log_to_df = LogToDataFrame()
@@ -116,6 +162,7 @@ class Handler(FileSystemEventHandler):
 
             X_normal.to_csv('/home/pi/PiDS/data.csv')
             os.system('sudo mv /home/pi/PiDS/data.csv /mnt/thesis/captures/nms/data/')
+            print('data sent to analyzer...')
 
         elif event.event_type == 'created' and ('.log' not in event.src_path) and ('.csv' not in event.src_path):
             print('created: ' + event.src_path)
